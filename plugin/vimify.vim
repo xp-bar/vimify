@@ -76,8 +76,30 @@ call s:Pause()
 python << endpython
 import vim
 subprocess.call(['osascript',
-                 '-e' 
+                 '-e'
                  'tell app "spotify" to play track "spotify:track:'+vim.eval("a:track")+'"'],
+                 stdout=open(os.devnull, 'wb'))
+endpython
+endfunction
+
+function! s:LoadAlbum(album)
+call s:Pause()
+python << endpython
+import vim
+subprocess.call(['osascript',
+                 '-e'
+                 'tell app "spotify" to play track "spotify:album:'+vim.eval("a:album")+'"'],
+                 stdout=open(os.devnull, 'wb'))
+endpython
+endfunction
+
+function! s:LoadArtist(artist)
+call s:Pause()
+python << endpython
+import vim
+subprocess.call(['osascript',
+                 '-e'
+                 'tell app "spotify" to play track "spotify:artist:'+vim.eval("a:artist")+'"'],
                  stdout=open(os.devnull, 'wb'))
 endpython
 endfunction
@@ -216,11 +238,11 @@ if row >= 0:
     elif col < 70:
         artistID = str(IDs[row]["artistID"])
         artist = str(ListedElements[row]["artist"])
-        vim.command('call s:SearchArtist("{}", "{}")'.format(artist, artistID))
+        vim.command('call s:LoadArtist("{}")'.format(artistID))
     else:
         albumID = str(IDs[row]["albumID"])
         album = str(ListedElements[row]["album"])
-        vim.command('call s:SearchAlbum("{}", "{}")'.format(album, albumID))
+        vim.command('call s:LoadAlbum("{}")'.format(albumID))
 endpython
 endfunction
 " *************************************************************************** "
