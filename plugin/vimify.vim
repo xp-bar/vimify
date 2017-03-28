@@ -3,7 +3,7 @@
 
 
 " *************************************************************************** "
-" ***************************    Initialization    ************************** " 
+" ***************************    Initialization    ************************** "
 " *************************************************************************** "
 
 if exists('g:vimifyInited')
@@ -37,42 +37,36 @@ def populate(track, albumName=None, albumIDNumber=None):
 
     info = {"uri": uri, "artistID": artistID, "albumID": albumID}
     IDs.append(info)
-    
+
 endpython
 
 " *************************************************************************** "
-" ***********************     Spotfy dbus wrappers     ********************** " 
+" ***********************     Spotfy dbus wrappers     ********************** "
 " *************************************************************************** "
 
 function! s:Play()
 python << endpython
-subprocess.call(['dbus-send',
-                 '--print-reply', 
-                 '--dest=org.mpris.MediaPlayer2.spotify', 
-                 '/org/mpris/MediaPlayer2', 
-                 'org.mpris.MediaPlayer2.Player.Play'], 
+subprocess.call(['osascript',
+                 '-e'
+                 'tell app "Spotify" to play'],
                  stdout=open(os.devnull, 'wb'))
 endpython
 endfunction
 
 function! s:Pause()
 python << endpython
-subprocess.call(['dbus-send',
-                 '--print-reply', 
-                 '--dest=org.mpris.MediaPlayer2.spotify', 
-                 '/org/mpris/MediaPlayer2', 
-                 'org.mpris.MediaPlayer2.Player.Pause'], 
+subprocess.call(['osascript',
+                 '-e'
+                 'tell app "Spotify" to pause'],
                  stdout=open(os.devnull, 'wb'))
 endpython
 endfunction
 
 function! s:Toggle()
 python << endpython
-subprocess.call(['dbus-send',
-                 '--print-reply', 
-                 '--dest=org.mpris.MediaPlayer2.spotify', 
-                 '/org/mpris/MediaPlayer2', 
-                 'org.mpris.MediaPlayer2.Player.PlayPause'], 
+subprocess.call(['osascript',
+                 '-e'
+                 'tell app "Spotify" to playpause'],
                  stdout=open(os.devnull, 'wb'))
 endpython
 endfunction
@@ -81,18 +75,15 @@ function! s:LoadTrack(track)
 call s:Pause()
 python << endpython
 import vim
-subprocess.call(['dbus-send',
-                 '--print-reply', 
-                 '--dest=org.mpris.MediaPlayer2.spotify', 
-                 '/org/mpris/MediaPlayer2', 
-                 'org.mpris.MediaPlayer2.Player.OpenUri',
-                 'string:spotify:track:'+vim.eval("a:track")], 
+subprocess.call(['osascript',
+                 '-e' 
+                 'tell app "spotify" to play track "spotify:track:'+vim.eval("a:track")+'"'],
                  stdout=open(os.devnull, 'wb'))
 endpython
 endfunction
 
 " *************************************************************************** "
-" ***********************      SpotfyAPI wrappers      ********************** " 
+" ***********************      SpotfyAPI wrappers      ********************** "
 " *************************************************************************** "
 
 function! s:SearchTrack(query)
@@ -113,7 +104,7 @@ if len(j) is not 0:
 else:
     vim.command("echo 'No tracks found'")
 endpython
-endfunction 
+endfunction
 
 function s:PopulateAlbum(albumName, albumIDNumber)
 python << endpython
@@ -179,7 +170,7 @@ endfunction
 
 
 " *************************************************************************** "
-" ***************************      Interface       ************************** " 
+" ***************************      Interface       ************************** "
 " *************************************************************************** "
 
 function! s:VimifySearchBuffer(query, type)
@@ -188,8 +179,8 @@ function! s:VimifySearchBuffer(query, type)
     endif
     below new Vimify
     call append(0, a:type . ' Results For: ' . a:query)
-    call append(line('$'), "Song                                           
-                           \Artist                
+    call append(line('$'), "Song
+                           \Artist
                            \Album")
     call append(line('$'), "--------------------------------------------------
                            \------------------------------------------------")
@@ -233,7 +224,7 @@ if row >= 0:
 endpython
 endfunction
 " *************************************************************************** "
-" ***************************   Command Bindngs   *************************** " 
+" ***************************   Command Bindngs   *************************** "
 " *************************************************************************** "
 command!            Spotify     call s:Toggle()
 command!            SpToggle    call s:Toggle()
