@@ -200,10 +200,8 @@ function! s:VimifySearchBuffer(query, type)
         bd Vimify
     endif
     below new Vimify
-    call append(0, a:type . ' Results For: ' . a:query)
-    call append(line('$'), "Song
-                           \Artist
-                           \Album")
+    call append(0, 'Spotify ' . a:type . ' Results For: ' . a:query)
+    call append(line('$'), "Song                                           Artist                Album")
     call append(line('$'), "--------------------------------------------------
                            \------------------------------------------------")
 
