@@ -19,4 +19,14 @@ The preferred way to install vimify is to use [pathogen](https://github.com/tpop
 cd ~/.vim/bundle
 git clone https://github.com/MuAnsari96/vimify
 ```
+update June 2017: Vimify now requires authentication.
+Grab an auth key over at the [Spotify web console](https://developer.spotify.com/web-api/console/get-search-item/)
+
+Then in your vimrc or vim-config add the following setting:
+
+```
+let g:spotify_token='YOURCREATEDTOKEN'
+```
+
 and you'll be good to go! Once help tags are generated, you can just run `:help vimify` in vim to see the manual.
+

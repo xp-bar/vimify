@@ -14,7 +14,7 @@ let g:vimifyInited = 0
 python << endpython
 import subprocess
 import os
-import urllib
+import urllib2
 import json
 
 IDs = []
@@ -111,10 +111,11 @@ endfunction
 function! s:SearchTrack(query)
 python << endpython
 import vim
-resp = urllib.urlopen(
-            "http://api.spotify.com/v1/search?q={}&type=track".format(
-                    vim.eval("a:query"))
-             )
+url = "http://api.spotify.com/v1/search?q={}&type=track".format(vim.eval("a:query"))
+headers = {}
+req = urllib2.Request(url,)
+req.add_header('Authorization', "Bearer {}".format(vim.eval("g:spotify_token")))
+resp = urllib2.urlopen(req)
 j = json.loads(resp.read())["tracks"]["items"]
 if len(j) is not 0:
     IDs = []
@@ -127,69 +128,6 @@ else:
     vim.command("echo 'No tracks found'")
 endpython
 endfunction
-
-function s:PopulateAlbum(albumName, albumIDNumber)
-python << endpython
-import vim
-resp = urllib.urlopen(
-            "http://api.spotify.com/v1/albums/{}/tracks".format(
-                    vim.eval("a:albumIDNumber"))
-            )
-j = json.loads(resp.read())["items"]
-for track in j:
-    populate(track, vim.eval("a:albumName"), vim.eval("a:albumIDNumber"))
-endpython
-endfunction
-
-function s:SearchAlbum(albumName, albumIDNumber)
-python << endpython
-import vim
-oldIDs = IDs
-oldListedElements = ListedElements
-IDs = []
-ListedElements = []
-vim.command('call s:PopulateAlbum(a:albumName, a:albumIDNumber)')
-
-if len(IDs) is 0:
-    IDs = oldIDs
-    ListedElements = oldListedElements
-    vim.command('echo "Invalid Album"')
-
-else:
-    vim.command('call s:VimifySearchBuffer(a:albumName, "Album")')
-endpython
-endfunction
-
-function! s:SearchArtist(artistName, artistIDNumber)
-python << endpython
-import vim
-oldIDs = IDs
-oldListedElements = ListedElements
-IDs = []
-ListedElements = []
-resp = urllib.urlopen(
-            "http://api.spotify.com/v1/artists/{}/albums".format(
-                    vim.eval("a:artistIDNumber"))
-            )
-j = json.loads(resp.read())["items"]
-vim.command('echo "YOOOO"')
-albums = set()
-for album in j:
-    albumName = album["name"]
-    if albumName.lower() not in albums:
-        albums.add(albumName.lower())
-        vim.command('call s:PopulateAlbum("{}", "{}")'.format(albumName, album["id"]))
-
-if len(IDs) is 0:
-    IDs = oldIDs
-    ListedElements = oldListedElements
-    vim.command('echo "Problem fetching artist data"')
-
-else:
-    vim.command('call s:VimifySearchBuffer(a:artistName, "Artist")')
-endpython
-endfunction
-
 
 " *************************************************************************** "
 " ***************************      Interface       ************************** "
