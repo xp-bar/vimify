@@ -111,18 +111,24 @@ endfunction
 function! s:SearchTrack(query)
 python << endpython
 import vim
-url = "https://api.spotify.com/v1/search?q={}&type=track".format(vim.eval("a:query"))
-headers = {}
+
+auth_url = "https://accounts.spotify.com/api/token"
+auth_req = urllib2.Request(auth_url, "grant_type=client_credentials",)
+auth_req.add_header('Authorization', "Basic {}".format(vim.eval("g:spotify_token")))
+auth_resp = urllib2.urlopen(auth_req)
+auth_code = json.loads(auth_resp.read())["access_token"]
+
+search_query = vim.eval("a:query").replace(' ', '+')
+url = "https://api.spotify.com/v1/search?q={}&type=track".format(search_query)
 req = urllib2.Request(url,)
-req.add_header('Authorization', "Bearer {}".format(vim.eval("g:spotify_token")))
+req.add_header('Authorization', "Bearer {}".format(auth_code))
 resp = urllib2.urlopen(req)
 j = json.loads(resp.read())["tracks"]["items"]
 if len(j) is not 0:
-    IDs = []
-    ListedElements = []
-    for track in j[:min(20, len(j))]:
-        populate(track)
-
+  IDs = []
+  ListedElements = []
+  for track in j[:min(20, len(j))]:
+    populate(track)
     vim.command('call s:VimifySearchBuffer(a:query, "Search")')
 else:
     vim.command("echo 'No tracks found'")

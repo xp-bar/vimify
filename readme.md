@@ -19,14 +19,25 @@ The preferred way to install vimify is to use [pathogen](https://github.com/tpop
 cd ~/.vim/bundle
 git clone https://github.com/MuAnsari96/vimify
 ```
-update June 2017: Vimify now requires authentication.
-Grab an auth key over at the [Spotify web console](https://developer.spotify.com/web-api/console/get-search-item/)
+update March 2018: Vimify now requires authentication.
 
-Then in your vimrc or vim-config add the following setting:
+1. Create a new spotify application at https://beta.developer.spotify.com/dashboard/applications
+2. Grab the Client Id and Client secret of your brand new spotify developer application
+3. Go to https://www.base64encode.org/ and paste your client id and secret like client:secret. example: 
 
 ```
-let g:spotify_token='YOURCREATEDTOKEN'
+afff3bbbdffff7ebclientID452855f9:afff3bbbdffff7secretfdfd452855f9
 ```
 
-and you'll be good to go! Once help tags are generated, you can just run `:help vimify` in vim to see the manual.
+4. Grab the encoded result to your clipboard and paste it in your vimrc like:
+
+```
+let g:spotify_token='YOURENCODEDRESULTHERE'
+```
+
+* It's bit of an extra step to encode it, but safes code in the plugin, plus you
+won't be putting a hard-coded password in your env files (though a bas64 string is easy
+to spot and more than easy to reverse!!!!).
+
+And you'll be good to go! Once help tags are generated, you can just run `:help vimify` in vim to see the manual.
 
