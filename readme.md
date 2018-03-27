@@ -2,7 +2,15 @@
 
 ![Vimify](https://raw.githubusercontent.com/HendrikPetertje/vimify/master/example.png)
 
-[vimify](https://github.com/MuAnsari96/vimify) is a plugin for [Vim](https://github.com/vim/vim) that provides simple Spotify integration. Since it uses the MPRIS2 dbus interface to control Spotify, it works out of the box with all Linux systems, provided that the Vim installation was compiled with python. Using this plugin, users can search for spotify tracks, browse through artists and albums, and completely control the playback of tracks through the desktop version of Spotify, all without leaving the comfort of Vim!
+[vimify](https://github.com/Hendrikpetertje/vimify) is a plugin for [Vim](https://github.com/vim/vim) 
+origionally inspired by [MuAnsari96](https://github.com/MuAnsari96/vimify).
+It provides a simple Spotify integration within Vim to search and play music on
+OSX. This version of vimify uses AppleScript to talk with spotify.
+Just make sure you have Spotify running somewhere and the plugin should work.
+
+For the search functions you will need to follow the new instructions in the setup
+part of this readme. Linux support trough Dbus / some code cleaning is underway,
+as well as looking for albums and artist.
 
 ## Features and Usage
 vimify is designed to interface with a running desktop instance of Spotify. Currently, the following features are supported:
