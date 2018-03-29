@@ -30,11 +30,11 @@ The preferred way to install vimify is to use [pathogen](https://github.com/tpop
 cd ~/.vim/bundle
 git clone https://github.com/MuAnsari96/vimify
 ```
-update March 2018: Vimify now requires authentication.
+### update March 2018: Vimify now requires authentication.
 
 1. Create a new spotify application at https://beta.developer.spotify.com/dashboard/applications
 2. Grab the Client Id and Client secret of your brand new spotify developer application
-3. Go to https://www.base64encode.org/ and paste your client id and secret like client:secret. example:
+3. Go to https://www.base64encode.org/ and paste your client id and secret like `client:secret` (don't forget the colon). Example:
 
 ```
 afff3bbbdffff7ebclientID452855f9:afff3bbbdffff7secretfdfd452855f9
