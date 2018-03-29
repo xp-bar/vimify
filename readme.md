@@ -17,6 +17,8 @@ vimify is designed to interface with a running desktop instance of Spotify. Curr
 
 * `:SpPlay` will play the current track
 * `:SpPause` will pause the current track
+* `:SpPrevious` will move to the previous track
+* `:SpNext` will move to the next track
 * `:Spotify` or `:SpToggle` will toggle play/pause
 * `:SpSearch <query>` will search spotify for 'query' and return the results in a new buffer. While working in the Vimify buffer, the name, artist and album of all pertinent tracks will be displayed. Vimify's behavior in this buffer is described as follows::
     * `<Enter>`: If the cursor is over the name of the track, Spotify will begin playback of that track
@@ -54,8 +56,6 @@ And you'll be good to go! Once help tags are generated, you can just run `:help 
 
 ## Roadmap
 - Clean up the code and break things apart to their own sections / files
-- Re-add Linux integration
-- Add previous / next controls
 - Instead of making a file that opens as an interface, 
   push the whole thing to `:copen` (need to dig in some literature for that).
 - Make a setup interface that helps new users create a `Authorisation: Basic`

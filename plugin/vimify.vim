@@ -98,6 +98,41 @@ elif osSystem == 'Linux' or osSystem == "Linux2":
 endpython
 endfunction
 
+
+function! s:Next()
+python3 << endpython
+if osSystem == 'Darwin':
+  subprocess.call(['osascript',
+                   '-e'
+                   'tell app "Spotify" to next track'],
+                   stdout=open(os.devnull, 'wb'))
+elif osSystem == 'Linux' or osSystem == "Linux2":
+  subprocess.call(['dbus-send',
+                   '--print-reply',
+                   '--dest=org.mpris.MediaPlayer2.spotify',
+                   '/org/mpris/MediaPlayer2',
+                   'org.mpris.MediaPlayer2.Player.Next'],
+                   stdout=open(os.devnull, 'wb'))
+endpython
+endfunction
+
+function! s:Previous()
+python3 << endpython
+if osSystem == 'Darwin':
+  subprocess.call(['osascript',
+                   '-e'
+                   'tell app "Spotify" to previous track'],
+                   stdout=open(os.devnull, 'wb'))
+elif osSystem == 'Linux' or osSystem == "Linux2":
+  subprocess.call(['dbus-send',
+                   '--print-reply',
+                   '--dest=org.mpris.MediaPlayer2.spotify',
+                   '/org/mpris/MediaPlayer2',
+                   'org.mpris.MediaPlayer2.Player.Previous'],
+                   stdout=open(os.devnull, 'wb'))
+endpython
+endfunction
+
 function! s:LoadTrack(track)
 call s:Pause()
 python3 << endpython
@@ -252,6 +287,8 @@ command!            Spotify     call s:Toggle()
 command!            SpToggle    call s:Toggle()
 command!            SpPause     call s:Pause()
 command!            SpPlay      call s:Play()
+command!            SpNext      call s:Next()
+command!            SpPrevious  call s:Previous()
 command!            SpSelect    call s:SelectSong()
 command! -nargs=1   SpSearch    call s:SearchTrack(<f-args>)
 
