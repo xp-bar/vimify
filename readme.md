@@ -5,8 +5,16 @@
 [vimify](https://github.com/Hendrikpetertje/vimify) is a plugin for [Vim](https://github.com/vim/vim) 
 origionally inspired by [MuAnsari96](https://github.com/MuAnsari96/vimify).
 It provides a simple Spotify integration within Vim to search and play music on
-OSX. This version of vimify uses AppleScript to talk with spotify.
-Just make sure you have Spotify running somewhere and the plugin should work.
+OSX and Linux. This version of vimify uses AppleScript to talk with spotify on
+Mac and Dbus on linux. If you managed to open vim and load this plugin, your
+system will have the right one installed.
+
+Just make sure you have Spotify installed somewhere and the plugin should work.
+You will need to have built vim with Python3 support or load python3 in neovim
+for this plugin to work.
+
+Big thanks to [Mattpenney89](https://github.com/mattpenney89) for writing the
+linux bits and updating the scripts to python 3
 
 For the search functions you will need to follow the new instructions in the setup
 part of this readme. Linux support trough Dbus / some code cleaning is underway,
