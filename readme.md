@@ -51,3 +51,13 @@ won't be putting a hard-coded password in your env files (though a bas64 string 
 to spot and more than easy to reverse!!!!).
 
 And you'll be good to go! Once help tags are generated, you can just run `:help vimify` in vim to see the manual.
+
+## Roadmap
+- Clean up the code and break things apart to their own sections / files
+- Re-add Linux integration
+- Add previous / next controls
+- Instead of making a file that opens as an interface, 
+  push the whole thing to `:copen` (need to dig in some literature for that).
+- Make a setup interface that helps new users create a `Authorisation: Basic`
+  token without having to read this readme or visiting shady encoding sites.
+- Your ideas and wishes.
