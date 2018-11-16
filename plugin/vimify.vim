@@ -1,5 +1,6 @@
-" vimify.vim:  Spotify integration for vim!
-" Maintainer:  Mustafa Ansari <http://github.com/MuAnsari96>
+" vimify.vim:     Spotify integration for vim!
+" Maintainer:     Peter van der Meulen <http://github.com/hendrikpetertje>
+" Original idea:  Mustafa Ansari <http://github.com/MuAnsari96>
 
 
 " *************************************************************************** "
@@ -291,5 +292,3 @@ command!            SpNext      call s:Next()
 command!            SpPrevious  call s:Previous()
 command!            SpSelect    call s:SelectSong()
 command! -nargs=1   SpSearch    call s:SearchTrack(<f-args>)
-
-
