@@ -38,7 +38,7 @@ vimify is designed to interface with a running desktop instance of Spotify. Curr
 The preferred way to install vimify is to use [pathogen](https://github.com/tpope/vim-pathogen). With pathogen installed, simply run
 ```bash
 cd ~/.vim/bundle
-git clone https://github.com/MuAnsari96/vimify
+git clone https://github.com/HendrikPetertje/vimify
 ```
 ### update March 2018: Vimify now requires authentication.
 
